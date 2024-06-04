@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -471,9 +473,7 @@ a:hover {
 						<li class=""><a href="#" class="mx-3"
 							data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
 							aria-controls="offcanvasCart"> <i
-								class="fa-solid fa-cart-shopping"></i> <span
-								class="position-absolute translate-middle badge rounded-circle bg-warning  pt-2 m-0">
-									03 </span>
+								class="fa-solid fa-cart-shopping"></i>
 						</a></li>
 					</ul>
 				</div>
@@ -578,9 +578,7 @@ a:hover {
 								<li class=""><a href="#" class="mx-3"
 									data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
 									aria-controls="offcanvasCart"> <i
-										class="fa-solid fa-cart-shopping"></i> <span
-										class="position-absolute translate-middle badge rounded-circle bg-warning  pt-2 m-0">
-											03 </span>
+										class="fa-solid fa-cart-shopping"></i>
 								</a></li>
 							</ul>
 						</div>
@@ -602,9 +600,9 @@ a:hover {
 							class="breadcrumb
 								breadcrumb-dark
 								subtle-shadow">
-							<li class="breadcrumb-item"><a href="#">Home</a></li>
-							<li class="breadcrumb-item"><a href="#">Library</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Data</li>
+							<li class="breadcrumb-item"><a href="/">Home</a></li>
+							<li class="breadcrumb-item"><a href="#">Cart</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Details</li>
 						</ol>
 					</nav>
 				</div>
@@ -658,18 +656,17 @@ a:hover {
 						</div>
 						<button type="button" class="btn btn-warning me-2">BUY
 							NOW</button>
-						<a href="/cart/details/view/${thuCungDetail.maThuCung}" type="button" class="btn btn-primary me-2">ADD TO
-							CART</a>
+						<a href="/cart/details/view/${thuCungDetail.maThuCung}"
+							type="button" class="btn btn-primary me-2">ADD TO CART</a>
 						<button type="button" class="btn btn-outline-secondary">SAVE</button>
 					</form>
 				</div>
 			</div>
 		</div>
 		<!-- Offcanvas Cart -->
-		<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart"
-			aria-labelledby="offcanvasCartLabel">
+		<div class="offcanvas offcanvas-end w-50" tabindex="-1"
+			id="offcanvasCart" aria-labelledby="offcanvasCartLabel">
 			<div class="offcanvas-header">
-				<h5 class="offcanvas-title" id="offcanvasCartLabel">Giỏ hàng</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
 					aria-label="Close"></button>
 			</div>
@@ -679,36 +676,59 @@ a:hover {
 						<h4>Giỏ hàng thú nuôi</h4>
 					</div>
 					<div class="card-body">
-						<table class="table table-striped">
-							<thead>
+						<table class="table table-hover">
+							<thead class="table-light">
 								<tr>
-									<th>Sản phẩm</th>
-									<th>Số lượng</th>
+									<th>Tên sản phẩm</th>
+									<th>Loại</th>
+									<th>Giống</th>
+									<th>Tuổi</th>
 									<th>Giá</th>
-									<th>Tổng</th>
-									<th></th>
+									<th>Hành động</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>Thức ăn cho chó</td>
-									<td>2</td>
-									<td>$20</td>
-									<td>$40</td>
-									<td><button class="btn btn-danger btn-sm">Xóa</button></td>
-								</tr>
-								<tr>
-									<td>Đồ chơi cho mèo</td>
-									<td>1</td>
-									<td>$15</td>
-									<td>$15</td>
-									<td><button class="btn btn-danger btn-sm">Xóa</button></td>
-								</tr>
+								<c:forEach var="entry" items="${cart}">
+									<tr>
+										<td><c:out value="${entry.value.tenThuCung}" /></td>
+										<td><c:out value="${entry.value.loai}" /></td>
+										<td><c:out value="${entry.value.giong}" /></td>
+										<td><c:out value="${entry.value.tuoi}" /></td>
+										<td><fmt:formatNumber value="${entry.value.gia}"
+												type="currency" currencySymbol="$" maxFractionDigits="2"
+												minFractionDigits="2" /></td>
+										<td>
+											<form
+												action="<c:url value='/cart/details/remove/${entry.key}'/>"
+												method="post">
+												<button class="btn btn-danger btn-sm">Xóa</button>
+											</form>
+										</td>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
+						<div class="d-flex justify-content-around">
+							<div class="d-flex align-items-center">
+								<span class="text-muted me-2">Số lượng:</span> <span
+									class="fw-bold">${cart.size()} sản phẩm</span>
+							</div>
+							<c:set var="totalPrice" value="0" />
+							<c:forEach var="item" items="${cart.values()}">
+								<c:set var="totalPrice" value="${totalPrice + item.gia}" />
+							</c:forEach>
+							<div class="d-flex align-items-center">
+								<span class="text-muted me-2">Tổng tiền:</span> <span
+									class="fw-bold"><fmt:formatNumber value="${totalPrice}"
+										type="currency" currencySymbol="$" maxFractionDigits="2"
+										minFractionDigits="2" /></span>
+							</div>
+						</div>
 						<div class="text-end">
-							<h5>Tổng cộng: $55</h5>
-							<button class="btn btn-success">Thanh toán</button>
+							<button class="btn btn-success my-2">Thanh toán</button>
+							<a class="btn btn-warning my-2" href="/cart/details/clear">Xóa
+								tất cả</a> <a class="btn btn-info my-2" href="/cart/details/view">Xem
+								tất cả</a>
 						</div>
 					</div>
 				</div>
@@ -814,7 +834,7 @@ a:hover {
 	<!-- FOOTER END -->
 
 </body>
-<script src="script.js"></script>
+<script src="/js/script.js"></script>
 
 </html>
 </body>

@@ -30,6 +30,14 @@ public class CartController {
 			cart = new HashMap<>();
 		}
 
+		// Thêm sản phẩm vào giỏ hàng
+		ThuCungEntity thucung = thuCungDAO.findById(id).get();
+		cart.put(id, thucung);
+		session.setAttribute("cart", cart);
+		model.addAttribute("cart", cart);
+		model.addAttribute("cartSize", cart.size());
+		return "redirect:/";
+
 		// Kiểm tra nếu sản phẩm đã có trong giỏ hàng
 //		if (cart.containsKey(id)) {
 //			redirectAttributes.addFlashAttribute("message", "Sản phẩm đã có trong giỏ hàng");
@@ -41,13 +49,6 @@ public class CartController {
 //			ThuCungEntity thucung = thuCungDAO.findById(id).get();
 //			cart.put(id, thucung);
 //		}
-		// Thêm sản phẩm vào giỏ hàng
-		ThuCungEntity thucung = thuCungDAO.findById(id).get();
-		cart.put(id, thucung);
-		session.setAttribute("cart", cart);
-		model.addAttribute("cart", cart);
-
-		return "redirect:/cart/details/view";
 	}
 
 	@RequestMapping("/cart/details/remove/{id}")
@@ -62,7 +63,7 @@ public class CartController {
 		cart.remove(id);
 		session.setAttribute("cart", cart);
 		model.addAttribute("cart", cart);
-		return "redirect:/cart/details/view";
+		return "redirect:/";
 	}
 
 	@RequestMapping("/cart/details/clear")
@@ -77,12 +78,11 @@ public class CartController {
 		cart.clear();
 		session.setAttribute("cart", cart);
 		model.addAttribute("cart", cart);
-		return "redirect:/cart/details/view";
+		return "redirect:/";
 	}
 
 	@RequestMapping("/cart/details/view")
 	public String cart() {
 		return "cartViewDetail";
-
 	}
 }
