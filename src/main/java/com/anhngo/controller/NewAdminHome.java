@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.anhngo.dao.DonHangDAO;
 
 @Controller
-public class TestFormController {
+public class NewAdminHome {
 	@Autowired
 	private DonHangDAO donHangDAO;
 
@@ -39,6 +39,8 @@ public class TestFormController {
 			totalRevenue += revenue;
 		}
 
+		model.addAttribute("thongKeDoanhThu_shipped", donHangDAO.thongKeDoanhThu_shipped());
+		model.addAttribute("thongKeDoanhThu_pending", donHangDAO.thongKeDoanhThu_pending());
 		model.addAttribute("totalOrders", totalOrders);
 		model.addAttribute("totalShippedOrders", totalShippedOrders);
 		model.addAttribute("totalPendingOrders", totalPendingOrders);
@@ -46,5 +48,4 @@ public class TestFormController {
 
 		return "html/index";
 	}
-
 }

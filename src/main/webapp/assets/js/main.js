@@ -116,3 +116,19 @@ let menu, animate;
   // Auto update menu collapsed/expanded based on the themeConfig
   window.Helpers.setCollapsed(true, false);
 })();
+// Khi người dùng cuộn trang hơn 20px từ trên xuống, hiển thị nút
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      document.getElementById("backToTopBtn").style.display = "block";
+    } else {
+      document.getElementById("backToTopBtn").style.display = "none";
+    }
+  }
+
+  // Khi người dùng nhấp vào nút, cuộn về đầu trang
+  function topFunction() {
+    document.body.scrollTop = 0; // Đối với Safari
+    document.documentElement.scrollTop = 0; // Đối với Chrome, Firefox, IE và Opera
+  }
