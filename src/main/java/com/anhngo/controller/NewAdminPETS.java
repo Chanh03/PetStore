@@ -72,12 +72,9 @@ public class NewAdminPETS {
 	}
 
 	@RequestMapping("/admin/pets1/update")
-	public String update(ThuCungEntity item, @RequestParam("saveFile") MultipartFile file,
+	public String update(@ModelAttribute("item") ThuCungEntity item, @RequestParam("saveFile") MultipartFile file,
 			RedirectAttributes redirectAttributes) {
 		try {
-			if (thuCungDAO.existsById(item.getMaThuCung())) {
-				return "redirect:/admin/pets1/index";
-			}
 			String path = "/hinhAnh/pets";
 			paramService.save(file, path);
 			String fileName = file.getOriginalFilename();
