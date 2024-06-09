@@ -30,9 +30,8 @@ $gray-900: rgba($black, 0.9) !default;
 
 // scss-docs-start gray-colors-map
 $grays: (
-  '25': $gray-25,
-  '50': $gray-50
-) !default;
+	'25': $gray-25,
+	'50': $gray-50) !default;
 // scss-docs-end gray-colors-map
 
 // scss-docs-start color-variables
@@ -62,16 +61,15 @@ $gray: $gray-100 !default; // (C)
 
 // scss-docs-start theme-colors-map
 $theme-colors: (
-  'primary': $primary,
-  'secondary': $secondary,
-  'success': $success,
-  'info': $info,
-  'warning': $warning,
-  'danger': $danger,
-  'light': $light,
-  'dark': $dark,
-  'gray': $gray
-) !default;
+	'primary': $primary,
+	'secondary': $secondary,
+	'success': $success,
+	'info': $info,
+	'warning': $warning,
+	'danger': $danger,
+	'light': $light,
+	'dark': $dark,
+	'gray': $gray) !default;
 // scss-docs-end theme-colors-map
 
 $color-scheme: 'light' !default; // (C)
@@ -94,24 +92,23 @@ $variable-prefix: bs- !default;
 $spacer: 1rem !default;
 
 $sizes-px: (
-  px-20: 20px,
-  px-30: 30px,
-  px-40: 40px,
-  px-50: 50px,
-  px-75: 75px,
-  px-100: 100px,
-  px-150: 150px,
-  px-200: 200px,
-  px-250: 250px,
-  px-300: 300px,
-  px-350: 350px,
-  px-400: 400px,
-  px-500: 500px,
-  px-600: 600px,
-  px-700: 700px,
-  px-800: 800px,
-  auto: auto
-) !default; // (C)
+	px-20: 20px,
+	px-30: 30px,
+	px-40: 40px,
+	px-50: 50px,
+	px-75: 75px,
+	px-100: 100px,
+	px-150: 150px,
+	px-200: 200px,
+	px-250: 250px,
+	px-300: 300px,
+	px-350: 350px,
+	px-400: 400px,
+	px-500: 500px,
+	px-600: 600px,
+	px-700: 700px,
+	px-800: 800px,
+	auto: auto) !default; // (C)
 
 $rgba-to-hex-bg: #fff !default; // (C)
 $rgba-to-hex-bg-inverted: #000 !default; // (C)
@@ -138,12 +135,12 @@ $link-hover-decoration: null !default;
 
 // scss-docs-start container-max-widths
 $container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 960px,
-  xl: 1140px,
-  xxl: 1440px // Custom xxl size
-) !default;
+	sm: 540px,
+	md: 720px,
+	lg: 960px,
+	xl: 1140px,
+	xxl: 1440px // Custom xxl size
+	) !default;
 // scss-docs-end container-max-widths
 
 $grid-gutter-width: 1.625rem !default;
@@ -200,10 +197,27 @@ $caret-spacing: 0.5em !default;
 // *******************************************************************************
 
 // scss-docs-start font-variables
-$font-family-sans-serif: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell',
-  'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !default;
-$font-family-serif: Georgia, 'Times New Roman', serif !default; // (C)
-$font-family-monospace: 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
+$font-family-sans-serif: 'Public Sans',
+	-apple-system,
+	BlinkMacSystemFont,
+	'Segoe UI',
+	'Oxygen',
+	'Ubuntu',
+	'Cantarell',
+	'Fira Sans',
+	'Droid Sans',
+	'Helvetica Neue',
+	sans-serif !default;
+$font-family-serif: Georgia,
+	'Times New Roman',
+	serif !default; // (C)
+$font-family-monospace: 'SFMono-Regular',
+	Menlo,
+	Monaco,
+	Consolas,
+	'Liberation Mono',
+	'Courier New',
+	monospace !default;
 // stylelint-enable value-keyword-case
 $font-family-base: var(--#{$variable-prefix}font-sans-serif) !default;
 $font-family-code: var(--#{$variable-prefix}font-monospace) !default;
@@ -244,13 +258,12 @@ $headings-color: rgba-to-hex($gray-900, $rgba-to-hex-bg) !default;
 
 // scss-docs-start display-headings
 $display-font-sizes: (
-  1: 4rem,
-  2: 3.5rem,
-  3: 3rem,
-  4: 2.5rem,
-  5: 2rem,
-  6: 1.5rem
-) !default;
+	1: 4rem,
+	2: 3.5rem,
+	3: 3rem,
+	4: 2.5rem,
+	5: 2rem,
+	6: 1.5rem) !default;
 
 $display-font-weight: 500 !default;
 // scss-docs-end display-headings
@@ -431,18 +444,13 @@ $input-focus-border-color-scale: 50% !default; //(C)
 $input-focus-border-color: tint-color($component-active-bg, $input-focus-border-color-scale) !default;
 
 $input-placeholder-transition: all 0.25s ease;
-$input-placeholder-transform: translate(5px);
+$input-placeholder-transform: translate(5px
+);
 $input-placeholder-color: rgba-to-hex($gray-400, $rgba-to-hex-bg) !default;
 
-$input-height-inner: px-to-rem(
-  floor(rem-to-px(($input-btn-font-size * $input-btn-line-height) + ($input-btn-padding-y * 2)))
-) !default;
-$input-height-inner-sm: px-to-rem(
-  floor(rem-to-px(($input-btn-font-size-sm * $input-btn-line-height-sm) + ($input-btn-padding-y-sm * 2)))
-) !default; // (C)
-$input-height-inner-lg: px-to-rem(
-  floor(rem-to-px(($font-size-lg * $line-height-lg) + ($input-btn-padding-y-lg * 2)))
-) !default; // (C)
+$input-height-inner: px-to-rem(floor(rem-to-px(($input-btn-font-size * $input-btn-line-height) + ($input-btn-padding-y * 2)))) !default;
+$input-height-inner-sm: px-to-rem(floor(rem-to-px(($input-btn-font-size-sm * $input-btn-line-height-sm) + ($input-btn-padding-y-sm * 2)))) !default; // (C)
+$input-height-inner-lg: px-to-rem(floor(rem-to-px(($font-size-lg * $line-height-lg) + ($input-btn-padding-y-lg * 2)))) !default; // (C)
 // scss-docs-end form-input-variables
 
 // scss-docs-start form-check-variables

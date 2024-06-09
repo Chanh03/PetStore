@@ -33,24 +33,3 @@ function toggleDetails(button) {
 	const details = button.parentElement.parentElement.querySelector('.details');
 	details.style.display = details.style.display === 'none' ? 'block' : 'none';
 }
-
-//XEM THÊM
-document.addEventListener('DOMContentLoaded', function() {
-	const items = document.querySelectorAll('.product-item');
-	const loadMoreBtn = document.getElementById('loadMoreBtn');
-	let visibleItems = 8;
-
-	loadMoreBtn.addEventListener('click', function() {
-		for (let i = visibleItems; i < visibleItems + 4; i++) {
-			if (items[i]) {
-				items[i].style.display = 'block';
-			}
-		}
-		visibleItems += 4;
-
-		// Hide the "Xem Thêm" button if all items are visible
-		if (visibleItems >= items.length) {
-			loadMoreBtn.style.display = 'none';
-		}
-	});
-});

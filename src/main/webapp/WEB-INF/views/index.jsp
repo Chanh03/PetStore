@@ -211,9 +211,9 @@ a:hover {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: rgba(255, 255, 255, 0.6);
-	opacity: 0;
-	/* Initially hidden */
+	background-color: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(2px); /* Điều chỉnh mức độ mờ ở đây */
+	opacity: 0; /* Initially hidden */
 	transition: opacity 0.3s ease-in-out, margin-bottom 0.3s ease-in-out;
 }
 
@@ -234,6 +234,12 @@ a:hover {
 .card:hover .card-img-overlay {
 	opacity: 1;
 	margin-bottom: 0;
+}
+
+.card:hover {
+	transform: scale(1.02);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+	transition: 0.3s;
 }
 
 .social-icon {
@@ -443,6 +449,56 @@ a:hover {
 .collapse-content.show {
 	max-height: 300px;
 	opacity: 1;
+}
+
+.sticky-centered {
+	position: -webkit-sticky; /* Safari */
+	position: sticky;
+	top: 50%;
+	transform: translateY(-25%);
+	z-index: 1; /* Đảm bảo form nằm trên các phần tử khác */
+}
+
+.form-container {
+	height: 200vh; /* Đủ cao để có không gian cuộn */
+}
+
+.pagination {
+	display: flex;
+	list-style: none;
+	padding: 0;
+}
+
+.page-item {
+	margin: 0 5px;
+}
+
+.page-link {
+	display: block;
+	padding: 8px 12px;
+	border: 1px solid #dee2e6;
+	border-radius: 4px;
+	text-decoration: none;
+	color: #007bff;
+	background-color: #fff;
+}
+
+.page-link:hover {
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+}
+
+.page-item.active .page-link {
+	color: #fff;
+	background-color: #007bff;
+	border-color: #007bff;
+}
+
+.page-item.disabled .page-link {
+	color: #6c757d;
+	pointer-events: none;
+	background-color: #fff;
+	border-color: #dee2e6;
 }
 </style>
 </head>
@@ -704,44 +760,89 @@ a:hover {
 		</section>
 		<!-- ITEMS -->
 		<section class="container my-5">
-			<div
-				class="d-flex justify-content-between align-items-center text-dark my-3">
-				<h2 class="fw-lighter  fs-1 ">Pet Clothing</h2>
-				<a href="#" class="btn btn-outline-dark ">Shop Now</a>
-			</div>
 			<div class="row">
-				<div id="products-container" class="row">
-					<c:forEach items="${thuCungItems}" var="items" varStatus="status">
-						<div class="col-lg-3 col-sm-6 mb-4 product-item"
-							<c:if test="${status.index >= 8}">style="display: none;"</c:if>>
-							<div class="card">
-								<div
-									class="card-img-overlay d-flex flex-column gap-3 justify-content-center align-items-center p-0">
-									<a href="/cart/details/view/${items.maThuCung}"
-										class="btn btn-add-to-cart add-to-cart">Add to Cart</a> <a
-										href="/index/products/view/detail/${items.maThuCung}" class="">Chi
-										tiết</a>
-								</div>
-								<img src="/hinhAnh/pets/${items.hinhAnh}" class="card-img-top"
-									alt="${items.hinhAnh}">
-								<div class="card-body text-start pb-0">
-									<h5 class="card-title fs-1 fw-lighter">${items.tenThuCung}</h5>
-									<div class="rate-star fs-6">
-										<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-											class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-											class="far fa-star"></i> <label class="text-body-tertiary">5.0</label>
+				<div class="col-md-2 form-container p-0">
+					<div class="sticky-centered">
+						<form action="/index/filter" method="get"
+							class="p-3 border rounded shadow bg-body">
+							<h1 class="h4 mb-4 text-center">Filter</h1>
+							<div class="mb-3">
+								<label for="ten" class="form-label">Tên</label> <input
+									type="text" id="ten" name="ten" value="${param.ten}"
+									class="form-control" placeholder="Nhập tên">
+							</div>
+							<div class="mb-3">
+								<label for="loai" class="form-label">Loài</label> <select
+									id="loai" name="loai" class="form-select">
+									<option value="">Chọn loài</option>
+									<c:forEach var="item" items="${filter}">
+										<option value="${item}"
+											${item eq param.loai ? 'selected' : ''}>${item}</option>
+									</c:forEach>
+								</select>
+							</div>
+
+							<button type="submit" class="btn btn-primary w-100">Filter</button>
+							<a href="/index" class="btn btn-secondary w-100 mt-2">Reset</a>
+						</form>
+					</div>
+				</div>
+				<div class="col-md-10">
+					<h1 class="h3 mb-4">Danh sách thú cưng</h1>
+					<div id="products-container" class="row">
+						<c:forEach items="${thuCungItems.content}" var="items"
+							varStatus="status">
+							<div class="col-lg-3 col-sm-6 mb-4 product-item">
+								<div class="card h-100">
+									<div
+										class="card-img-overlay d-flex flex-column gap-3 justify-content-center align-items-center p-0">
+										<a href="/cart/details/view/${items.maThuCung}"
+											class="fs-4 btn btn-add-to-cart add-to-cart">Add to Cart</a> <a
+											href="/index/products/view/detail/${items.maThuCung}"
+											class="nav-link text-light border rounded px-2 py-1 bg-dark">Chi tiết</a>
 									</div>
-									<div class="text-price d-flex gap-2">
-										<p class="card-text fs-1">${items.gia}</p>
-										<p class="card-text fs-3 text-decoration-line-through">$20.00</p>
+									<img src="/hinhAnh/pets/${items.hinhAnh}"
+										class="card-img-top h-100" alt="${items.hinhAnh}">
+									<div class="card-body text-start pb-0">
+										<h5 class="card-title fs-4 fw-bold">${items.tenThuCung}</h5>
+										<div class="rate-star fs-6">
+											<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+												class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+												class="far fa-star"></i> <label class="text-body-tertiary">5.0</label>
+										</div>
+										<div class="text-price d-flex gap-2">
+											<p class="card-text fs-3">${items.gia}</p>
+											<p class="card-text fs-5 text-decoration-line-through">$20.00</p>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
-				</div>
-				<div class="text-center mt-4">
-					<button id="loadMoreBtn" class="btn btn-primary">Xem Thêm</button>
+						</c:forEach>
+					</div>
+					<div class="text-center d-flex justify-content-center">
+						<nav aria-label="Page navigation">
+							<ul class="pagination">
+								<!-- Previous page link -->
+								<c:if test="${currentPage > 1}">
+									<li class="page-item"><a class="page-link"
+										href="?page=${currentPage - 1}">&laquo;</a></li>
+								</c:if>
+
+								<!-- Page number links -->
+								<c:forEach var="i" begin="1" end="${totalPages-1}">
+									<li class="page-item ${i == currentPage ? 'active' : ''}">
+										<a class="page-link" href="?page=${i}">${i}</a>
+									</li>
+								</c:forEach>
+
+								<!-- Next page link -->
+								<c:if test="${currentPage < totalPages}">
+									<li class="page-item"><a class="page-link"
+										href="?page=${currentPage + 1}">&raquo;</a></li>
+								</c:if>
+							</ul>
+						</nav>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -917,5 +1018,6 @@ a:hover {
 
 </body>
 <script src="/js/script.js"></script>
+
 
 </html>

@@ -2,11 +2,12 @@
 // *******************************************************************************
 
 .form-control {
-  &::placeholder {
-    transition: $input-placeholder-transition;
-  }
-  &:focus::placeholder {
-    transform: $input-placeholder-transform;
-    transition: $input-placeholder-transition;
-  }
+	&::placeholder {
+		transition: $input-placeholder-transition;
+	}
+
+	&:focus::placeholder {
+		transform: $input-placeholder-transform;
+		transition: $input-placeholder-transition;
+	}
 }

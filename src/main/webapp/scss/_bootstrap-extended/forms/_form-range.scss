@@ -2,51 +2,53 @@
 // *******************************************************************************
 
 .form-range {
-  // Chrome specific
-  &::-webkit-slider-thumb {
-    box-shadow: $form-range-thumb-box-shadow;
-    transition: transform 0.2s;
-    transform-origin: center;
 
-    &:focus {
-      box-shadow: $form-range-thumb-focus-box-shadow;
-    }
+	// Chrome specific
+	&::-webkit-slider-thumb {
+		box-shadow: $form-range-thumb-box-shadow;
+		transition: transform 0.2s;
+		transform-origin: center;
 
-    &:active {
-      transform: scale(1.4, 1.4);
-    }
-  }
+		&:focus {
+			box-shadow: $form-range-thumb-focus-box-shadow;
+		}
 
-  // Mozilla specific
-  &::-moz-range-thumb {
-    box-shadow: $form-range-thumb-box-shadow;
-    transition: transform 0.2s;
-    transform-origin: center;
+		&:active {
+			transform: scale(1.4, 1.4);
+		}
+	}
 
-    &:focus {
-      box-shadow: $form-range-thumb-focus-box-shadow;
-    }
+	// Mozilla specific
+	&::-moz-range-thumb {
+		box-shadow: $form-range-thumb-box-shadow;
+		transition: transform 0.2s;
+		transform-origin: center;
 
-    &:active {
-      transform: scale(1.4, 1.4);
-    }
-  }
+		&:focus {
+			box-shadow: $form-range-thumb-focus-box-shadow;
+		}
 
-  &:disabled {
-    &::-webkit-slider-runnable-track {
-      background-color: $form-range-track-disabled-bg;
-    }
+		&:active {
+			transform: scale(1.4, 1.4);
+		}
+	}
 
-    &::-moz-range-track {
-      background-color: $form-range-track-disabled-bg;
-      box-shadow: none;
-    }
+	&:disabled {
+		&::-webkit-slider-runnable-track {
+			background-color: $form-range-track-disabled-bg;
+		}
 
-    &::-webkit-slider-thumb {
-      box-shadow: none;
-    }
-    &::-moz-range-thumb {
-      box-shadow: none;
-    }
-  }
+		&::-moz-range-track {
+			background-color: $form-range-track-disabled-bg;
+			box-shadow: none;
+		}
+
+		&::-webkit-slider-thumb {
+			box-shadow: none;
+		}
+
+		&::-moz-range-thumb {
+			box-shadow: none;
+		}
+	}
 }
