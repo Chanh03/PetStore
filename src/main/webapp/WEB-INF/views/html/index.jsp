@@ -633,13 +633,14 @@
 							<div class="col-lg-12 mb-4 order-0">
 								<div class="card shadow p-4">
 									<h2 class="mb-4">Danh sách đơn hàng</h2>
-									<form action="/admin/index" class="mb-3">
+									<form action="/admin/orders-by-status" method="get"
+										class="mb-3">
 										<div class="row">
 											<div class="col-md-6">
 												<label for="statusFilter" class="form-label">Lọc
 													theo trạng thái:</label> <select id="statusFilter" name="status"
 													class="form-select">
-													<option value="all">Tất cả</option>
+													<option value="">Tất cả</option>
 													<option value="shipped">Đã giao</option>
 													<option value="pending">Chưa giao</option>
 												</select>
@@ -649,7 +650,6 @@
 											</div>
 										</div>
 									</form>
-
 									<table class="table table-responsive">
 										<thead>
 											<tr>
@@ -1036,8 +1036,21 @@
 
 	<!-- Place this tag in your head or just before your close body tag. -->
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-		
+		document.addEventListener("DOMContentLoaded", function() {
+			document.getElementById("filterButton")
+					.addEventListener(
+							"click",
+							function() {
+								var status = document
+										.getElementById("statusFilter").value;
+								window.location.href = "/admin/index?status="
+										+ status;
+							});
+		});
 	</script>
+
+
 </body>
 </html>

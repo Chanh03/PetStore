@@ -786,7 +786,7 @@ a:hover {
 					</div>
 				</div>
 				<div class="col-md-10">
-					<h1 class="h3 mb-4">Danh sách thú cưng</h1>
+					<h1 class="h3 mb-4">Thú cưng của bạn đó :D mua ngay nào</h1>
 					<div id="products-container" class="row">
 						<c:forEach items="${thuCungItems}" var="items" varStatus="status">
 							<div class="col-lg-3 col-sm-6 mb-4 product-item">
