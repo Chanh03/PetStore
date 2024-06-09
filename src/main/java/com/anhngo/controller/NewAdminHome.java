@@ -14,7 +14,7 @@ public class NewAdminHome {
 	@Autowired
 	private DonHangDAO donHangDAO;
 
-	@RequestMapping("/admin/ordersinfo1/index")
+	@RequestMapping("/admin/index")
 	public String ordersInfo(Model model) {
 		// Lấy danh sách đơn hàng
 		List<Object[]> ordersList = donHangDAO.findAllOrdersInfo();

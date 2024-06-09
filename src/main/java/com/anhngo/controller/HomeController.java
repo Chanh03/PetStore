@@ -19,16 +19,40 @@ public class HomeController {
 	@Autowired
 	private ThuCungDAO thuCungDAO;
 
-	@RequestMapping({ "/", "/index", "/index/filter" })
+	@RequestMapping({ "/index", "/" })
+	public String index(Model model, @RequestParam(defaultValue = "1") int page) {
+		Pageable pageable = PageRequest.of(page - 1, 16); // Chú ý: page - 1 vì page trong Spring bắt đầu từ 0
+		Page<ThuCungEntity> thuCungPage = thuCungDAO.findAll(pageable);
+
+		model.addAttribute("thuCungItems", thuCungPage.getContent()); // Truyền danh sách thay vì Page
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", thuCungPage.getTotalPages());
+		model.addAttribute("filter", thuCungDAO.loaiList());
+		return "index";
+	}
+
+	@RequestMapping("/index/filter")
 	public String home(Model model, @RequestParam(required = false) String ten,
 			@RequestParam(required = false) String loai, @RequestParam(defaultValue = "1") int page) {
-		Pageable pageable = PageRequest.of(page, 16);
-		Page<ThuCungEntity> thuCungPage = thuCungDAO.findWithFilters(ten, loai, pageable);
-		model.addAttribute("thuCungItems", thuCungPage);
-		model.addAttribute("currentPage", page);
-		model.addAttribute("filter", thuCungDAO.loaiList());
-		model.addAttribute("totalPages", thuCungPage.getTotalPages());
+		List<ThuCungEntity> thuCungList = thuCungDAO.findWithFilters(ten, loai);
+		int pageSize = 16;
 
+		// Tính toán chỉ số bắt đầu và kết thúc của trang hiện tại
+		int startIndex = (page - 1) * pageSize;
+		int endIndex = Math.min(startIndex + pageSize, thuCungList.size());
+
+		// Trích xuất danh sách con cho trang hiện tại
+		List<ThuCungEntity> thuCungPage = thuCungList.subList(startIndex, endIndex);
+
+		// Tính tổng số trang
+		int totalPages = (int) Math.ceil((double) thuCungList.size() / pageSize);
+
+		model.addAttribute("thuCungItems", thuCungPage); // Truyền danh sách thay vì Page
+		model.addAttribute("ten", ten);
+		model.addAttribute("loai", loai);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("filter", thuCungDAO.loaiList());
 		return "index";
 	}
 

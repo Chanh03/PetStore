@@ -15,7 +15,7 @@ public interface ThuCungDAO extends JpaRepository<ThuCungEntity, Integer> {
 
 	@Query("SELECT t FROM ThuCungEntity t WHERE " + "(:ten IS NULL OR t.tenThuCung LIKE %:ten%) AND "
 			+ "(:loai IS NULL OR t.loai LIKE %:loai%)")
-	Page<ThuCungEntity> findWithFilters(@Param("ten") String ten, @Param("loai") String loai, Pageable pageable);
+	List<ThuCungEntity> findWithFilters(@Param("ten") String ten, @Param("loai") String loai);
 
 	@Query(value = "SELECT DISTINCT loai FROM thucung", nativeQuery = true)
 	List<String> loaiList();

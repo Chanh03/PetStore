@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Waggy Pet Shop</title>
 <!-- ICON -->
-<link rel="icon" href="images/nhaiconbanphim2-01.png">
+<link rel="icon" href="hinhAnh/pets/logo.jpg">
 <!-- Bootstrap CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -768,7 +768,7 @@ a:hover {
 							<h1 class="h4 mb-4 text-center">Filter</h1>
 							<div class="mb-3">
 								<label for="ten" class="form-label">Tên</label> <input
-									type="text" id="ten" name="ten" value="${param.ten}"
+									type="text" id="ten" name="ten" value="${ten}"
 									class="form-control" placeholder="Nhập tên">
 							</div>
 							<div class="mb-3">
@@ -776,13 +776,11 @@ a:hover {
 									id="loai" name="loai" class="form-select">
 									<option value="">Chọn loài</option>
 									<c:forEach var="item" items="${filter}">
-										<option value="${item}"
-											${item eq param.loai ? 'selected' : ''}>${item}</option>
+										<option value="${item}" ${item eq loai ? 'selected' : ''}>${item}</option>
 									</c:forEach>
 								</select>
 							</div>
-
-							<button type="submit" class="btn btn-primary w-100">Filter</button>
+							<button formaction="/index/filter" class="btn btn-primary w-100">Filter</button>
 							<a href="/index" class="btn btn-secondary w-100 mt-2">Reset</a>
 						</form>
 					</div>
@@ -790,16 +788,16 @@ a:hover {
 				<div class="col-md-10">
 					<h1 class="h3 mb-4">Danh sách thú cưng</h1>
 					<div id="products-container" class="row">
-						<c:forEach items="${thuCungItems.content}" var="items"
-							varStatus="status">
+						<c:forEach items="${thuCungItems}" var="items" varStatus="status">
 							<div class="col-lg-3 col-sm-6 mb-4 product-item">
 								<div class="card h-100">
 									<div
 										class="card-img-overlay d-flex flex-column gap-3 justify-content-center align-items-center p-0">
 										<a href="/cart/details/view/${items.maThuCung}"
-											class="fs-4 btn btn-add-to-cart add-to-cart">Add to Cart</a> <a
-											href="/index/products/view/detail/${items.maThuCung}"
-											class="nav-link text-light border rounded px-2 py-1 bg-dark">Chi tiết</a>
+											class="fs-4 btn btn-add-to-cart add-to-cart">Add to Cart</a>
+										<a href="/index/products/view/detail/${items.maThuCung}"
+											class="nav-link text-light border rounded px-2 py-1 bg-dark">Chi
+											tiết</a>
 									</div>
 									<img src="/hinhAnh/pets/${items.hinhAnh}"
 										class="card-img-top h-100" alt="${items.hinhAnh}">
@@ -825,20 +823,20 @@ a:hover {
 								<!-- Previous page link -->
 								<c:if test="${currentPage > 1}">
 									<li class="page-item"><a class="page-link"
-										href="?page=${currentPage - 1}">&laquo;</a></li>
+										href="?page=${currentPage - 1}&ten=${ten}&loai=${loai}">&laquo;</a></li>
 								</c:if>
 
 								<!-- Page number links -->
-								<c:forEach var="i" begin="1" end="${totalPages-1}">
+								<c:forEach var="i" begin="1" end="${totalPages}">
 									<li class="page-item ${i == currentPage ? 'active' : ''}">
-										<a class="page-link" href="?page=${i}">${i}</a>
+										<a class="page-link" href="?page=${i}&ten=${ten}&loai=${loai}">${i}</a>
 									</li>
 								</c:forEach>
 
 								<!-- Next page link -->
 								<c:if test="${currentPage < totalPages}">
 									<li class="page-item"><a class="page-link"
-										href="?page=${currentPage + 1}">&raquo;</a></li>
+										href="?page=${currentPage + 1}&ten=${ten}&loai=${loai}">&raquo;</a></li>
 								</c:if>
 							</ul>
 						</nav>
